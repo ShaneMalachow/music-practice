@@ -54,7 +54,7 @@ function generateNote() {
   fingers = ['index finger', 'middle finger', 'ring finger', 'pinky finger']
 
   notes = nat_notes
-  if (document.getElementById('accidentals-check').value == 'on') {
+  if (document.getElementById('accidentals-check').checked) {
     notes = full_notes
   }
 
@@ -72,4 +72,3 @@ function generateNote() {
 
 </body>
 </html>
-
