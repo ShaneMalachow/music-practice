@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>String Practice Generator</h1>
+<fieldset>
+<p id="demo"><br></p>
+</fieldset>
+<button type="button" onclick="generateNote()">New</button>
+
+<fieldset>
+  <legend>Notes:</legend>
+
+  <div>
+    <input type="radio" id="naturals" name="notes" checked />
+    <label for="naturals">Naturals only</label>
+  </div>
+  <div>
+    <input type="radio" id="accidentals" name="notes" />
+    <label for="accidentals">Include Accidentals</label>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Instrument:</legend>
+
+  <div>
+    <input type="radio" id="guitar_6" name="instrument" checked />
+    <label for="guitar_6">Guitar, 6 string</label>
+  </div>
+  <div>
+    <input type="radio" id="guitar_7" name="instrument"  />
+    <label for="guitar_7">Guitar, 7 string</label>
+  </div>
+  <div>
+    <input type="radio" id="guitar_8" name="instrument" />
+    <label for="guitar_8">Guitar, 8 string</label>
+  </div>
+  <div>
+    <input type="radio" id="mandolin" name="instrument" />
+    <label for="mandolin">Mandolin</label>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Other options:</legend>
+
+  <div>
+    <input type="checkbox" id="fingering" name="fingering" />
+    <label for="fingering">Generate fingering</label>
+  </div>
+</fieldset>
+
+<script>
+function generateNote() {
+  nat_notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+  full_notes = ['A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab']
+  instruments = {
+    "guitar_6": ['High E', 'B', 'G', 'D', 'A', 'Low E'],
+    "guitar_7": ['High E', 'B', 'G', 'D', 'A', 'Low E', 'Low B'],
+    "guitar_8": ['High E', 'B', 'G', 'D', 'A', 'Low E', 'Low B', 'F#/Gb'],
+    "mandolin": ["G", "D", "A", "E"]
+  }
+  fingers = ['index finger', 'middle finger', 'ring finger', 'pinky finger']
+
+  if (document.querySelector('input[id=naturals]:checked') != null) {
+    notes = nat_notes
+  } else if (document.querySelector('input[id=accidentals]:checked') != null){
+    notes = full_notes
+  }
+
+  instrument_radios = document.getElementsByName('instrument')
+  for (var i = 0; i < instrument_radios.length; i++) {
+    if (instrument_radios[i].type === 'radio' && instrument_radios[i].checked) {
+      strings = instruments[instrument_radios[i].id]
+    }
+  }
+
+  note = notes[Math.floor(Math.random()*notes.length)]
+  string = strings[Math.floor(Math.random()*strings.length)]
+
+  s = `${note} on ${string}`
+
+  if (document.getElementById('fingering').checked) {
+    s += ` with ${fingers[Math.floor(Math.random()*fingers.length)]}`
+  }
+
+  document.getElementById("demo").innerHTML = s;
+}
+</script>
+
+</body>
+</html>
+
